@@ -24,7 +24,12 @@ export default (function () {
             },
             id_colaborador: {
                 type: DataTypes.INTEGER,
-                allowNull: true
+                allowNull: false
+            },
+            finished_at: {
+                type: DataTypes.DATE,
+                allowNull: true,
+                defaultValue: null
             },
             created_at: {
                 type: DataTypes.DATE,

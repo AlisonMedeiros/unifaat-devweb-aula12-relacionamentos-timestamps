@@ -18,6 +18,8 @@ export default async (request, response) => {
 
     if (is_checked !== undefined) {
         data["is_checked"] = is_checked;
+
+        data["finished_at"] = (is_checked) ? (new Date) : (null);
     }
 
     // Object.keys({a:1, b:2, c:3}) = [a,b,c]
@@ -32,10 +34,7 @@ export default async (request, response) => {
     try {
 
         const [rowsAffected, [row]] = await TodoModel.update(
-            {
-                title: title,
-                is_checked: is_checked
-            },
+            data,
             {
                 where: {
                     id: id

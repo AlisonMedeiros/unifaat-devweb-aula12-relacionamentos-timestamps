@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS todos (
     title VARCHAR(155),
     is_checked BOOLEAN DEFAULT FALSE,
     id_colaborador INTEGER,
+    finished_at TIMESTAMPTZ DEFAULT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT chave_estrangeira_colaborador

@@ -1,14 +1,14 @@
 services:
 
   #NODE
-  node-web-container:
+  node-web-aula12-container:
     build:
       context: .
       dockerfile: docker/node22-web/Dockerfile.dev
     env_file: .env
     volumes:
       - .:/app
-      - node-modules-volume:/app/node_modules
+      - node-modules-aula12-volume:/app/node_modules
     restart: unless-stopped
     environment:
       - NODE_PORT=3000
@@ -16,12 +16,12 @@ services:
     expose:
       - ${NODE_PORT}
     networks:
-      - project-network
+      - project-aula12-network
     depends_on:
-      - postgres-container
+      - postgres-aula12-container
 
   #NGINX
-  nginx-container:
+  nginx-aula12-container:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -30,12 +30,12 @@ services:
     volumes:
       - ./public:/var/www/public
     depends_on:
-      - node-web-container
+      - node-web-aula12-container
     networks:
-      - project-network
+      - project-aula12-network
 
   #POSTGRES
-  postgres-container:
+  postgres-aula12-container:
     image: postgres:17
     restart: unless-stopped
     environment:
@@ -46,10 +46,10 @@ services:
     ports:
       - "6789:${POSTGRES_PORT}"
     volumes:
-      - pgdata-volume:/var/lib/postgresql/data
+      - pgdata-aula12-volume:/var/lib/postgresql/data
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
     networks:
-      project-network:
+      project-aula12-network:
         aliases:
           - ${POSTGRES_HOST}
 
@@ -57,9 +57,9 @@ services:
 #OTHERS
 
 networks:
-  project-network:
+  project-aula12-network:
     driver: bridge
 
 volumes:
-  pgdata-volume:
-  node-modules-volume:
+  pgdata-aula12-volume:
+  node-modules-aula12-volume:
