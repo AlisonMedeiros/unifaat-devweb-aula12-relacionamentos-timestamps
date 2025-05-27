@@ -3,6 +3,10 @@ import ProjetoModel from "../../Models/ProjetoModel.js";
 import TodoModel from "../../Models/TodoModel.js";
 
 export default async (request, response) => {
+   
+    const ORDER_CAMPOS_PERMITIDOS = ["id", "created_at", "update"];
+    
+    const DIRECOES_PERMITIDAS = ["asc", "desc"];
 
     const HTTP_STATUS = CONSTANTS.HTTP;
 
@@ -13,13 +17,24 @@ export default async (request, response) => {
     if (limit > CONSTANTS.MAX_GET_LIMIT) {
         return response.status(HTTP_STATUS.BAD_REQUEST).json({ error: `Limit máximo: ${CONSTANTS.MAX_GET_LIMIT}.` });
     }
+    const orderByArray = orderBy.split(",");
+
+    const orderCampo = orderByArray[0];
+    
+    const orderDirecao = orderByArray[1] || "asc";
+
+
+    const orderCampoFinal = ORDER_CAMPOS_PERMITIDOS
+        .includes(orderCampo) ? orderCampo : "id";
+    const orderDirecaoFinal = DIRECOES_PERMITIDAS
+        .includes(orderDirecao) ? orderDirecao : "asc";
 
     try {
 
         const data = await ColaboradorModel.findAll({
             limit: limit + 1,
             offset: offset,
-            order: [["id", "asc"]],
+            order: [[orderCampoFinal, orderDirecaoFinal]],
             include: [
                 {
                     model: TodoModel,
