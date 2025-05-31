@@ -4,19 +4,6 @@
 
 ### Siga os passos abaixo para rodar o projeto via Docker:
 
-1. Clonar o repositório:
-
-   ```sh
-   git clone https://github.com/luan-tavares/unifaat-devweb-aula12-relacionamentos-timestamps
-   ```
-
-2. Entrar na pasta do projeto:
-
-   ```sh
-   cd unifaat-devweb-aula12-relacionamentos-timestamps
-   ```
-
-3. Criar o arquivo `.env` na raiz do projeto copiando o .env.example:
 
    > No windows:
 
